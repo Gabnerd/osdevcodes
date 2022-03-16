@@ -8,15 +8,29 @@
     %include "print_string.asm"
 
 print_hex:
-    mov cx, HEX_OUT
-
+    mov bx, HEX_OUT
+    add bx, 2
+    shr dx, 8;problema
 print_hex_loop:
-    cmp cx, 0
+    cmp byte[bx], 0
     je print_hex_final
-    ;wtf i need put here?
-    add cx, 1
+    cmp byte[bx], 58
+    jg print_hex_letra
+
+print_hex_numero:
+    mov cl, 48
+    add cl, dl
+    mov byte[bx], cl
+    add bx, 1
     jmp print_hex_loop
-    
+
+print_hex_letra:
+    mov cx, 96
+    add cx, dx
+    mov byte[bx], cl
+    add bx, 1
+    jmp print_hex_loop
+
 print_hex_final:
     mov bx, HEX_OUT
     call print_string
