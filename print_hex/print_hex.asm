@@ -42,7 +42,5 @@ print_hex_final:
 
 HEX_OUT: db '0x0000',0
 
-COUNTER_AUX: db 00000000
-
     times 510-($-$$) db 0
     dw 0xaa55
